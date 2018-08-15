@@ -18,8 +18,8 @@
 #pragma once
 
 #include <basic_definitions>
-
 #include <bits/std_function.hpp>
+#include <bits/std_reference_wrapper.hpp>
 
 #pragma GCC visibility push(default)
 

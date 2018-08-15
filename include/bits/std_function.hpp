@@ -79,7 +79,7 @@ namespace std {
 		: detail::maybe_binary_or_unary_function<Args...>
 	#endif
 	{
-		// DELETEME: use std::invoke instead
+		// DELETEME: use std::reference_wrapper instead
 		class invocable {
 		public:
 			virtual ~invocable() = default;
@@ -148,15 +148,16 @@ namespace std {
 			_target = make_unique<functor<F>>(f);
 			return *this;
 		}
-		/* @brief Sets the target of *this to a copy of f.
-		 * @tparam F - must meet the requirements of Callable.
-		 */
-		template <class F> enable_if_t<
-			detail::is_invocable_r_v<F, R, Args...>, function &
-		> operator =(reference_wrapper<F> f) {
-			_target = reference_wrapper<F>(f);
-			return *this;
-		}
+		// TODO: implement std::referece_wrapper
+		// /* @brief Sets the target of *this to a copy of f.
+		//  * @tparam F - must meet the requirements of Callable.
+		//  */
+		// template <class F> enable_if_t<
+		// 	detail::is_invocable_r_v<F, R, Args...>, function &
+		// > operator =(reference_wrapper<F> f) {
+		// 	_target = reference_wrapper<F>(f);
+		// 	return *this;
+		// }
 
 		// @brief Exchanges the stored callable objects of *this and other.
 		void swap(function &other) noexcept {
