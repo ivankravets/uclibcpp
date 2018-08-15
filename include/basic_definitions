@@ -19,8 +19,12 @@
 #define __BASIC_DEFINITIONS 1
 
 #include <system_configuration.h>
+#include <details/versions.hpp>
 
 #pragma GCC visibility push(default)
+
+#define __STRINGIFY(value) #value
+#define _STRINGIFY(value) __STRINGIFY(value)
 
 //The following is used to support GCC symbol visibility patch
 
@@ -30,7 +34,6 @@
 #else
 	#define _UCXXEXPORT
 	#define _UCXXLOCAL
-
 #endif
 
 #ifdef __GCC__
@@ -45,7 +48,11 @@
 	#define __UCLIBCXX_TLS
 #endif
 
-
+#if defined(__has_cpp_attribute) && __has_cpp_attribute(deprecated)
+#  define _UCXXDEPRECATED(reason) [[deprecated(_STRINGIFY(reason))]]
+#else
+#  define _UCXXDEPRECATED(reason) __attribute__ ((deprecated(_STRINGIFY(reason))))
+#endif
 
 //Testing purposes
 #define __STRING_MAX_UNITS 65535
