@@ -39,20 +39,20 @@
  *  and its contents are (mostly) the same as that header, but are all
  *  contained in the namespace @c std.
  */
-
-#ifndef _CPP_CSTDDEF
-#define _CPP_CSTDDEF 1
+#pragma once
 
 #ifdef __GCC__
 #pragma GCC system_header
 #endif
 
 #include <stddef.h>
+#include <details/versions.hpp>
 
-namespace std 
-{
+namespace std {
   using ::ptrdiff_t;
   using ::size_t;
-}
 
+#if __is_cpp_std_11
+  using nullptr_t = decltype(nullptr);
 #endif
+}

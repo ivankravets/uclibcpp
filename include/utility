@@ -89,7 +89,7 @@ namespace std {
 	 * @since c++11
 	 */
 	template <class T>
-#ifdef __cpp_std_14
+#if __is_cpp_std_14
   constexpr
 #endif
 	T &&forward(remove_reference_t<T> &value) noexcept { return static_cast<T&&>(value); }
@@ -99,12 +99,12 @@ namespace std {
 	 * This overload makes it possible to forward a result of an expression (such as function call),
 	 * which may be rvalue or lvalue, as the original value category of a forwarding reference argument.
 	 * 
-	 * @param v - the object to be forwarded
+	 * @param value - the object to be forwarded
 	 * 
 	 * @since c++11
 	 */
 template <class T>
-#ifdef __cpp_std_14
+#if __is_cpp_std_14
   constexpr
 #endif
 	T &&forward(remove_reference_t<T> &&value) noexcept {
@@ -114,6 +114,23 @@ template <class T>
 		);
 		return static_cast<T&&>(value);
 	}
+
+	/** @fn std::move utility
+	 * @brief std::move is used to indicate that an object value may be "moved from",
+	 *   allowing the efficient transfer of resources from value to another object.
+	 * In particular, std::move produces an xvalue expression that identifies its argument value.
+	 * It is exactly equivalent to a static_cast to an rvalue reference type.
+	 * 
+	 * @param value - the object to be moved
+	 * 
+	 * @since c++11
+	 */
+#if !__is_cpp_std_14
+	template <class T> remove_reference_t<T> &&move(T &&t) noexcept
+#else
+	template <class T> constexpr remove_reference_t<T> &&move(T &&value) noexcept
+#endif
+	{ return static_cast<remove_reference_t<T>&&>(value); }
 }
 
 #pragma GCC visibility pop

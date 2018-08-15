@@ -4,42 +4,14 @@
 #  define __cplusplus 199711L
 #endif
 
-#if __cplusplus >= 199711L
-#  ifndef __cpp_std_98
-#    define __cpp_std_98
-#  endif
-#else
-#  ifdef __cpp_std_98
-#    undef __cpp_std_98
-#  endif
-#endif
+#define __cpp_std_98 199711L
+#define __is_cpp_std_98 (__cplusplus >= __cpp_std_98)
 
-#if __cplusplus >= 201103L
-#  ifndef __cpp_std_11
-#    define __cpp_std_11
-#  endif
-#else
-#  ifdef __cpp_std_11
-#    undef __cpp_std_11
-#  endif
-#endif
+#define __cpp_std_11 201103L
+#define __is_cpp_std_11 (__cplusplus >= __cpp_std_11)
 
-#if __cplusplus >= 201402L
-#  ifndef __cpp_std_14
-#    define __cpp_std_14
-#  endif
-#else
-#  ifdef __cpp_std_14
-#    undef __cpp_std_14
-#  endif
-#endif
+#define __cpp_std_14 201402L
+#define __is_cpp_std_14 (__cplusplus >= __cpp_std_14)
 
-#if __cplusplus >= 201703L
-#  ifndef __cpp_std_17
-#    define __cpp_std_17
-#  endif
-#else
-#  ifdef __cpp_std_17
-#    undef __cpp_std_17
-#  endif
-#endif
+#define __cpp_std_17 201703L
+#define __is_cpp_std_17 (__cplusplus >= __cpp_std_17)

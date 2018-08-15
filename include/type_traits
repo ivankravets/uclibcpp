@@ -115,7 +115,7 @@ namespace std{
 	template <bool condition, class T = void> struct enable_if { };
 	template <class T> struct enable_if<true, T> { using type = T; };
 
-#ifdef __cpp_std_14
+#if __is_cpp_std_14
 	// @since c++14
 	template <bool condition, class T = void>
 	using enable_if_t = typename enable_if<condition, T>::type;
@@ -168,7 +168,7 @@ namespace std{
 	template <class T> struct remove_reference<T&> { using type = T; };
 	template <class T> struct remove_reference<T&&> { using type = T; };
 	
-#ifdef __cpp_std_14
+#if __is_cpp_std_14
 	// @since c++14
 	template <class T>
 	using remove_reference_t = typename remove_reference<T>::type;
@@ -189,7 +189,7 @@ namespace std{
 #ifdef __cpp_std_17
 	// @since c++17
 	template <class T>
-	constexpr bool is_lvalue_reference_v = is_lvalue_reference<T>::value;
+	inline constexpr bool is_lvalue_reference_v = is_lvalue_reference<T>::value;
 #endif
 }
 

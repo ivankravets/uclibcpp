@@ -51,7 +51,7 @@ namespace std {
   public:
     using auto_ptr<T>::auto_ptr;
 
-    void swap(unique_ptr &o) {
+    void swap(unique_ptr &o) noexcept {
       auto o_obj = o.release();
       auto t_obj = this->release();
       o.reset(t_obj);
