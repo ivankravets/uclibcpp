@@ -17,6 +17,7 @@
 #pragma once
 
 #include <basic_definitions>
+#include <memory>
 
 namespace std {
 	/** @class std::function functional
@@ -51,5 +52,22 @@ namespace std {
 		: detail::maybe_binary_or_unary_function<Args...> {
 	public:
 		using result_type = R;
+
+		// DELETEME: use std::invoke instead
+		class invocable {
+    public:
+      virtual ~invocable() = default;
+      virtual R invoke(Args &&...) = 0;
+    };
+  	template <class F> class functor : public invocable {
+      F _f;
+    public:
+      functor(const F &f) : _f(f) { }
+      functor(F &&f) : _f(move(f)) { }
+      ~functor() override = default;
+      R invoke(Args &&...args) override { return _f(forward<Args>(args)...); }
+    };
+
+		unique_ptr<invocable> _target;
 	};
 }
