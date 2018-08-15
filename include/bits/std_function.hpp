@@ -21,8 +21,8 @@
 
 namespace std {
 	/** @class std::function functional
+	 * @brief Class template std::function is a general-purpose polymorphic function wrapper.
 	 * 
-	 * Class template std::function is a general-purpose polymorphic function wrapper.
 	 * Instances of std::function can store, copy, and invoke any Callable target -- functions,
 	 * lambda expressions, bind expressions, or other function objects,
 	 * as well as pointers to member functions and pointers to data members.
@@ -32,9 +32,11 @@ namespace std {
 	 * Invoking the target of an empty std::function results in std::bad_function_call exception being thrown.
 	 * std::function satisfies the requirements of CopyConstructible and CopyAssignable.
 	 * 
+	 * @tparam F - function type
+	 * 
 	 * @since c++11
 	 */
-	template <class> class _UCXXEXPORT function; /*undefined*/
+	template <class F> class _UCXXEXPORT function; /*undefined*/
 
 	// DELETEME: use std::tuple instead
 	namespace detail {
