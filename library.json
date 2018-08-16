@@ -1,0 +1,12 @@
+{
+  "name": "uclibcpp",
+  "version": "1.0.0",
+  "description": "uClibc++ is a C++ standard library targeted towards the embedded systems/software market",
+  "keywords": "c++, stl, uclibc++",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anion155/uclibcpp.git"
+  },
+  "frameworks": "*",
+  "platforms": "*"
+}
