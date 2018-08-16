@@ -16,17 +16,15 @@
 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 */
-
+#pragma once
 
 #include <basic_definitions>
-
-
-#ifndef __STD_HEADER_UTILITY
-#define __STD_HEADER_UTILITY 1
+#include <details/versions.hpp>
+#include <type_traits>
 
 #pragma GCC visibility push(default)
 
-namespace std{
+namespace std {
 
 	namespace rel_ops {
 		template<class T> inline bool operator!=(const T& x, const T& y){
@@ -80,9 +78,59 @@ namespace std{
 		return pair<T1,T2>(x, y);
 	}
 
+	/** @fn std::forward utility
+	 * @brief Forwards lvalues as either lvalues or as rvalues, depending on T.
+	 * When t is a forwarding reference (a function argument that is an rvalue reference
+	 * to a cv-unqualified function template parameter), this overload forwards the argument
+	 * to another function with the value category it had when passed to the calling function.
+	 * 
+	 * @param value - the object to be forwarded
+	 * 
+	 * @since c++11
+	 */
+	template <class T>
+#if __is_cpp_std_14
+  constexpr
+#endif
+	T &&forward(remove_reference_t<T> &value) noexcept { return static_cast<T&&>(value); }
 
+	/** @fn std::forward utility
+	 * @brief Forwards rvalues as rvalues and prohibits forwarding of rvalues as lvalues.
+	 * This overload makes it possible to forward a result of an expression (such as function call),
+	 * which may be rvalue or lvalue, as the original value category of a forwarding reference argument.
+	 * 
+	 * @param value - the object to be forwarded
+	 * 
+	 * @since c++11
+	 */
+template <class T>
+#if __is_cpp_std_14
+  constexpr
+#endif
+	T &&forward(remove_reference_t<T> &&value) noexcept {
+		static_assert(
+			!is_lvalue_reference<T>(),
+			"template argument substituting T is an lvalue reference type"
+		);
+		return static_cast<T&&>(value);
+	}
+
+	/** @fn std::move utility
+	 * @brief std::move is used to indicate that an object value may be "moved from",
+	 *   allowing the efficient transfer of resources from value to another object.
+	 * In particular, std::move produces an xvalue expression that identifies its argument value.
+	 * It is exactly equivalent to a static_cast to an rvalue reference type.
+	 * 
+	 * @param value - the object to be moved
+	 * 
+	 * @since c++11
+	 */
+#if !__is_cpp_std_14
+	template <class T> remove_reference_t<T> &&move(T &&t) noexcept
+#else
+	template <class T> constexpr remove_reference_t<T> &&move(T &&value) noexcept
+#endif
+	{ return static_cast<remove_reference_t<T>&&>(value); }
 }
 
 #pragma GCC visibility pop
-
-#endif	//__STD_HEADER_UTILITY

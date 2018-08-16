@@ -15,16 +15,15 @@
 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-
-#ifndef __STD_HEADER_FUNCTIONAL
-#define __STD_HEADER_FUNCTIONAL 1
+#pragma once
 
 #include <basic_definitions>
+#include <bits/std_function.hpp>
+#include <bits/std_reference_wrapper.hpp>
 
 #pragma GCC visibility push(default)
 
-namespace std{
-
+namespace std {
 	template <class Arg, class Result> struct unary_function;
 	template <class Arg1, class Arg2, class Result> struct binary_function;
 
@@ -63,16 +62,16 @@ namespace std{
 	template <class Arg1, class Arg2, class Result>
 		pointer_to_binary_function<Arg1,Arg2,Result> ptr_fun(Result (*)(Arg1,Arg2));
 
-	template<class S, class T> class mem_fun_t;
-	template<class S, class T, class A> class mem_fun1_t;
-	template<class S, class T> class const_mem_fun_t;
-	template<class S, class T, class A> class const_mem_fun1_t;
-	template<class S, class T> mem_fun_t<S,T> mem_fun(S (T::*f)());
-	template<class S, class T, class A> mem_fun1_t<S,T,A> mem_fun(S (T::*f)(A));
-	template<class S, class T> class mem_fun_ref_t;
-	template<class S, class T, class A> class mem_fun1_ref_t;
-	template<class S, class T> mem_fun_ref_t<S,T> mem_fun_ref(S (T::*f)());
-	template<class S, class T, class A> mem_fun1_ref_t<S,T,A> mem_fun1_ref(S (T::*f)(A));
+	template <class S, class T> class mem_fun_t;
+	template <class S, class T, class A> class mem_fun1_t;
+	template <class S, class T> class const_mem_fun_t;
+	template <class S, class T, class A> class const_mem_fun1_t;
+	template <class S, class T> mem_fun_t<S,T> mem_fun(S (T::*f)());
+	template <class S, class T, class A> mem_fun1_t<S,T,A> mem_fun(S (T::*f)(A));
+	template <class S, class T> class mem_fun_ref_t;
+	template <class S, class T, class A> class mem_fun1_ref_t;
+	template <class S, class T> mem_fun_ref_t<S,T> mem_fun_ref(S (T::*f)());
+	template <class S, class T, class A> mem_fun1_ref_t<S,T,A> mem_fun1_ref(S (T::*f)(A));
 
 	//Implementation
 
@@ -383,8 +382,6 @@ namespace std{
 	template<class S, class T, class A> _UCXXEXPORT mem_fun1_ref_t<S,T,A> mem_fun1_ref(S (T::*f)(A)){
 		return mem_fun1_ref_t<S,T,A>(f);
 	}
-
-
 }
 
 
@@ -432,8 +429,3 @@ compose2(const Op1 & fn1, const Op2 & fn2, const Op3 & fn3){
 }
 
 #pragma GCC visibility pop
-
-#endif
-
-
-
